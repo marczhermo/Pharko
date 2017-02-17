@@ -63,8 +63,12 @@ class PharkoListCommand(sublime_plugin.TextCommand):
             # default pick
 
             self.view.window().show_quick_panel(self.list, self.on_done, 1, 0)
+        elif (response['type'] == 'snippet'):
+            self.view.run_command("insert_snippet", { "name": "Packages/Pharko/" + response['data']})
         elif (response['type'] == 'file'):
-            self.view.run_command("pharko_text", {"args":{'text': response['data']}})
+            # self.view.run_command("insert_snippet", {'contents':  "console.log('=== $TM_FILENAME [$TM_LINE_NUMBER] === ${0}');"})
+            self.view.run_command("insert_snippet", {'contents': response['data']})
+            # self.view.run_command("pharko_text", {"args":{"text": response['data']}})
 
 
 

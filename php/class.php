@@ -4,8 +4,8 @@
 */
 class MyClass
 {
-    public function __construct()
+    public function __construct(${1})
     {
-        echo 'Hello World';
+        ${2}
     }
 }
