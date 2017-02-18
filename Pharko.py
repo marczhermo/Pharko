@@ -27,7 +27,7 @@ else:
 PLUGIN_PATH = os.path.abspath(os.path.dirname(__file__))
 ## All packages path
 PACKAGES_PATH = sublime.packages_path() or os.path.dirname(PLUGIN_PATH)
-PACKAGES_PATH = PACKAGES_PATH + '/Mharko'
+PACKAGES_PATH = PACKAGES_PATH + '/Pharkos'
 
 def plugin_loaded():
     PharkoLoadedCommand.isThisPluginLoaded()
@@ -56,7 +56,7 @@ class PharkoListCommand(sublime_plugin.TextCommand):
             location = args['text']
         command = ["ls", "-la", PLUGIN_PATH]
         command = ["php", PLUGIN_PATH + "/pharko.phar", "dir", "php/class.php"]
-        command = ["php", PLUGIN_PATH + "/pharko.phar", "dir", location]
+        command = ["php", PLUGIN_PATH + "/pharko.phar", "dir", "--base=" + PACKAGES_PATH, location]
         process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         response, _ = process.communicate()
         returncode = process.returncode
@@ -76,7 +76,7 @@ class PharkoListCommand(sublime_plugin.TextCommand):
 
             self.view.window().show_quick_panel(self.list, self.on_done, 1, 0)
         elif (response['type'] == 'snippet'):
-            self.view.run_command("insert_snippet", { "name": "Packages/Pharko/" + response['data']})
+            self.view.run_command("insert_snippet", { "name": "Packages/Pharkos/" + response['data']})
         elif (response['type'] == 'file'):
             # self.view.run_command("insert_snippet", {'contents':  "console.log('=== $TM_FILENAME [$TM_LINE_NUMBER] === ${0}');"})
             self.view.run_command("insert_snippet", {'contents': response['data']})
