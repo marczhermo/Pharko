@@ -15,13 +15,17 @@ PY3 = sys.version > '3'
 
 if PY3:
     import urllib.request as urllib
+    from .PharkoLoadedCommand import PharkoLoadedCommand
 else:
     import urllib2 as urllib
+    from PharkoLoadedCommand import PharkoLoadedCommand
 
 ## As you type characters, a word is calculated by encountering first space char
 ## This then replace the found word with its capitalized version
 class PharkoSampleCommand(sublime_plugin.TextCommand):
     def run(self, edit):
+        PharkoLoadedCommand.isThisPluginLoaded()
+
         sel = self.view.sel()[0]
         counter = 1;
         indexLess = sel.a

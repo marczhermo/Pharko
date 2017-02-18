@@ -14,10 +14,12 @@ PY3 = sys.version > '3'
 
 if PY3:
     import urllib.request as urllib
+    from .src.PharkoLoadedCommand import PharkoLoadedCommand
     from .src.PharkoTextCommand import PharkoTextCommand
     from .src.PharkoSampleCommand import PharkoSampleCommand
 else:
     import urllib2 as urllib
+    from src.PharkoLoadedCommand import PharkoLoadedCommand
     from src.PharkoTextCommand import PharkoTextCommand
     from src.PharkoSampleCommand import PharkoSampleCommand
 
@@ -25,10 +27,15 @@ else:
 PLUGIN_PATH = os.path.abspath(os.path.dirname(__file__))
 ## All packages path
 PACKAGES_PATH = sublime.packages_path() or os.path.dirname(PLUGIN_PATH)
+PACKAGES_PATH = PACKAGES_PATH + '/Mharko'
+
+def plugin_loaded():
+    PharkoLoadedCommand.isThisPluginLoaded()
 
 ## Runs the terminal command 'ls -la'
 ## Inserts the contents on the first line of the file
 class PharkoListCommand(sublime_plugin.TextCommand):
+    staticIsPluginLoaded = False
     def on_done(self, index):
 
         #  if user cancels with Esc key, do nothing
@@ -39,8 +46,11 @@ class PharkoListCommand(sublime_plugin.TextCommand):
         self.view.run_command("pharko_list", {"args":{'text': self.list[index]}})
 
     def run(self, edit, args={}):
+        PharkoLoadedCommand.isThisPluginLoaded()
+
         # print("Marcz Here", PY3)
         # pp.pprint(args)
+
         location = ""
         if len(args):
             location = args['text']
@@ -52,6 +62,8 @@ class PharkoListCommand(sublime_plugin.TextCommand):
         returncode = process.returncode
         response = response.decode('utf-8');
         response = json.loads(response)
+
+
 
         if (response['type'] == 'list'):
             # this will populate the quick_panel
