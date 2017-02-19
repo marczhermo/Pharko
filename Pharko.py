@@ -46,24 +46,20 @@ class PharkoListCommand(sublime_plugin.TextCommand):
         self.view.run_command("pharko_list", {"args":{'text': self.list[index]}})
 
     def run(self, edit, args={}):
-        PharkoLoadedCommand.isThisPluginLoaded()
-
-        # print("Marcz Here", PY3)
         # pp.pprint(args)
+        PharkoLoadedCommand.isThisPluginLoaded()
 
         location = ""
         if len(args):
             location = args['text']
-        command = ["ls", "-la", PLUGIN_PATH]
-        command = ["php", PLUGIN_PATH + "/pharko.phar", "dir", "php/class.php"]
+        # command = ["ls", "-la", PLUGIN_PATH]
         command = ["php", PLUGIN_PATH + "/pharko.phar", "dir", "--base=" + PACKAGES_PATH, location]
+
         process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         response, _ = process.communicate()
         returncode = process.returncode
-        response = response.decode('utf-8');
+        response = response.decode('utf-8')
         response = json.loads(response)
-
-
 
         if (response['type'] == 'list'):
             # this will populate the quick_panel
@@ -78,10 +74,4 @@ class PharkoListCommand(sublime_plugin.TextCommand):
         elif (response['type'] == 'snippet'):
             self.view.run_command("insert_snippet", { "name": "Packages/Pharkos/" + response['data']})
         elif (response['type'] == 'file'):
-            # self.view.run_command("insert_snippet", {'contents':  "console.log('=== $TM_FILENAME [$TM_LINE_NUMBER] === ${0}');"})
             self.view.run_command("insert_snippet", {'contents': response['data']})
-            # self.view.run_command("pharko_text", {"args":{"text": response['data']}})
-
-
-
-
