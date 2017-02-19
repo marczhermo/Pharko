@@ -8,6 +8,7 @@ import json
 import tempfile
 import traceback
 import pprint
+import shutil #for copying files/dirs
 
 pp = pprint.PrettyPrinter(indent=4)
 PY3 = sys.version > '3'
@@ -27,7 +28,7 @@ else:
 PLUGIN_PATH = os.path.abspath(os.path.dirname(__file__))
 ## All packages path
 PACKAGES_PATH = sublime.packages_path() or os.path.dirname(PLUGIN_PATH)
-PACKAGES_PATH = PACKAGES_PATH + '/Pharkos'
+PACKAGES_PATH = os.path.join(PACKAGES_PATH, 'Pharkos')
 
 def plugin_loaded():
     PharkoLoadedCommand.isThisPluginLoaded()
@@ -48,6 +49,11 @@ class PharkoListCommand(sublime_plugin.TextCommand):
     def run(self, edit, args={}):
         # pp.pprint(args)
         PharkoLoadedCommand.isThisPluginLoaded()
+
+        # Copy sample php snippets if necessary
+        samplePHPSnippets = PACKAGES_PATH + '/php'
+        if not os.path.isdir(samplePHPSnippets):
+            shutil.copytree(PLUGIN_PATH + '/php', samplePHPSnippets)
 
         location = ""
         if len(args):
