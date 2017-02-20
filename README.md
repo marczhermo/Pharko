@@ -11,4 +11,13 @@ A typical example of folder organization is by having the file type/extension as
 * Public repositories can be manually installed inside this package folder, and will be read by this package.
 * You don't have to memorize each snippet's trigger keys, because directory traversal seems ways easier when you use the extension names or properly describe directory names.
 
+## Quickpanel Shortcut
+Add the following keyboard shortcut to your Key Bindings file
+
+ `{ "keys": ["alt+shift+0"], "command": "pharko_list", "args": {} },`
+
+## Todos
 More improvements will come with this package since the author is just a starting to learn how to code in Python with Sublime package writing in mind.
+
+* Create and read configuration settings
+* Automatically install public snippets repository
