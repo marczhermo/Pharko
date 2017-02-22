@@ -25,7 +25,7 @@ class PharkoLoadedCommand:
     def isThisPluginLoaded():
         if not PharkoLoadedCommand.staticIsPluginLoaded:
             PharkoLoadedCommand.staticIsPluginLoaded = True
-            PharkoLoadedCommand.toggleThisConsole()
+            # PharkoLoadedCommand.toggleThisConsole()
             PharkoLoadedCommand.createThisPackageFolder()
         return True
 
