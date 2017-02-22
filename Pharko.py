@@ -1,10 +1,13 @@
 import sublime
+import sublime_api
 import sublime_plugin
 import sys #for finding python version
 import subprocess #for running terminal commands
 import os
 import sys
 import json
+import html
+import collections
 import tempfile
 import traceback
 import pprint
@@ -17,11 +20,13 @@ if PY3:
     import urllib.request as urllib
     from .src.PharkoLoadedCommand import PharkoLoadedCommand
     from .src.PharkoTextCommand import PharkoTextCommand
+    from .src.PharkoPanelCommand import PharkoPanelCommand
     from .src.PharkoSampleCommand import PharkoSampleCommand
 else:
     import urllib2 as urllib
     from src.PharkoLoadedCommand import PharkoLoadedCommand
     from src.PharkoTextCommand import PharkoTextCommand
+    from src.PharkoPanelCommand import PharkoPanelCommand
     from src.PharkoSampleCommand import PharkoSampleCommand
 
 ## Current files path
@@ -79,5 +84,6 @@ class PharkoListCommand(sublime_plugin.TextCommand):
             self.view.window().show_quick_panel(self.list, self.on_done, 1, 0)
         elif (response['type'] == 'snippet'):
             self.view.run_command("insert_snippet", { "name": "Packages/Pharkos/" + response['data']})
+            self.view.window().run_command("pharko_panel", response) #works too
         elif (response['type'] == 'file'):
             self.view.run_command("insert_snippet", {'contents': response['data']})
