@@ -2,11 +2,28 @@
     <content><![CDATA[
 public function __construct(${1})
 {
-    ${2}
+    ${2://}
 }
 ]]></content>
     <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
     <!-- <tabTrigger>marcz</tabTrigger> -->
     <!-- Optional: Set a scope to limit where the snippet will trigger -->
     <!-- <scope>source.php</scope> -->
+    <title>constructor</title>
+    <docs><![CDATA[
+Note: Parent constructors are not called implicitly if the child class defines a constructor.
+In order to run a parent constructor, a call to parent::__construct() within the child constructor is required.
+Warning: Old style constructors are DEPRECATED in PHP 7.0, and will be removed in a future version.
+]]></docs>
+    <code><![CDATA[
+<?php
+namespace Foo;
+class Bar {
+    public function Bar() {
+        // treated as constructor in PHP 5.3.0-5.3.2
+        // treated as regular method as of PHP 5.3.3
+    }
+}
+?>
+]]></code>
 </snippet>

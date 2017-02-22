@@ -1,0 +1,32 @@
+<snippet>
+    <content><![CDATA[
+\$${1:collection} = array_reduce(
+    \$${1:collection},
+    function(\$carry, \$${2:item}) {
+        ${4://}
+        return $carry;
+    },
+    \$${3:initialValue} = []
+);
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <!-- <tabTrigger>marcz</tabTrigger> -->
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <!-- <scope>source.php</scope> -->
+    <title>array_reduce</title>
+    <docs><![CDATA[
+mixed array_reduce ( array $array , callable $callback [, mixed $initial = NULL ] )
+array_reduce() applies iteratively the callback function to the elements of the array, so as to reduce the array to a single value.
+If the array is empty and initial is not passed, array_reduce() returns NULL.
+]]></docs>
+    <code><![CDATA[
+<?php
+function product($carry, $item)
+{
+    $carry *= $item;
+    return $carry;
+}
+$a = array(1, 2, 3, 4, 5);
+var_dump(array_reduce($a, "product", 10)); // int(1200), because: 10*1*2*3*4*5
+]]></code>
+</snippet>
