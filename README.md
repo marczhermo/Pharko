@@ -18,6 +18,32 @@ Add the following keyboard shortcut to your Key Bindings file
  
 ![screenshot](docs/img/screenshot.gif)
 
+## Whats New
+Snippets with additional documentation in mind. By including extra xml data on the snippet file,
+we are able to create an instruction or sample usage to our users.
+Here is an example snippet modification:
+
+```xml
+<snippet>
+    <content><![CDATA[
+public function __construct(${1})
+{
+    ${2://}
+}
+]]></content>
+    <title>Snippet Title</title>
+    <docs><![CDATA[
+Your additional information.
+]]></docs>
+    <code><![CDATA[
+<?php
+//Sample source code or output
+?>
+]]></code>
+</snippet>
+```
+![screenshot](docs/img/screenshot2.gif)
+
 ## Todos
 More improvements will come with this package since the author is just a starting to learn how to code in Python with Sublime package writing in mind.
 
