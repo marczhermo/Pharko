@@ -69,7 +69,9 @@ class PharkoPanelCommand(sublime_plugin.WindowCommand):
         stylesheet = '''
             <style>
                 body.container {
-                    padding:0 20px 20px;
+                    padding:20px;
+                    background-color: color(var(--background) blend(white 50%));
+                    color: color(var(--foreground) blend(black 50%));
                 }
                 div.header {
                     position:relative;
@@ -80,32 +82,33 @@ class PharkoPanelCommand(sublime_plugin.WindowCommand):
                 div.header a.close-button {
                     text-decoration: inherit;
                     font-weight: bold;
+                    position:relative;
                     display: block;
                     padding:10px;
+                    color: color(var(--foreground) blend(black 50%));
+                    background-color: color(var(--background) blend(white 10%));
                 }
-                html.dark div.header a.close-button {
-                    background-color: #00000018;
-                }
-                html.light div.header a.close-button {
-                    background-color: #ffffff18;
+                div.header a.close-button i {
+                    display:inline;
+                    padding:5px 10px;
+                    background-color: var(--background);
                 }
                 code {
                     padding:5px 20px 20px 20px;
                     display:block;
-                    width:100%;
-                    background-color: #00000018;
-                    color:#89DDFF;
+                    background-color: color(var(--foreground) blend(black 50%));
+                    color: color(var(--background) blend(white 50%));
                 }
             </style>
         '''
 
+        self.output_view.show(0)
         self.output_view.add_phantom("phantom.pharko", self.output_view.sel()[0],
             ('<body class="container">' + stylesheet +
             '<div class="header">' +
             '<h2 class="title">' +
-            '<a class="close-button" href="#">' + chr(0x00D7) + '&nbsp;' +
-            html.escape(title, quote=False) + '</a>' +
-            '</h2></div>' +
+            '<a class="close-button" href="#">' + '<i>' + chr(0x00D7) + '</i>' +
+            '&nbsp;' + html.escape(title, quote=False) + '</a></h2></div>' +
             '<div class="content">' +
             '<p>' + docs + '</p>' +
             '<code>' + code + '</code>' +
