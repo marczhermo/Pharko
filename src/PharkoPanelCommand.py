@@ -103,7 +103,8 @@ class PharkoPanelCommand(sublime_plugin.WindowCommand):
         '''
 
         self.output_view.show(0)
-        self.output_view.add_phantom("phantom.pharko", self.output_view.sel()[0],
+        allContent = sublime.Region(0, self.output_view.size())
+        self.output_view.add_phantom("phantom.pharko", allContent,
             ('<body class="container">' + stylesheet +
             '<div class="header">' +
             '<h2 class="title">' +
