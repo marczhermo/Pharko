@@ -49,9 +49,10 @@ class PharkoListCommand(sublime_plugin.TextCommand):
         if index == -1:
             return
         # if user picks from list, return the correct entry
-        self.view.run_command("pharko_list", {"args":{'text': self.list[index]}})
+        self.view.run_command("pharko_list", {"location":self.list[index]})
 
-    def run(self, edit, args={}):
+    def run(self, edit, location='', **args):
+        # pp.pprint(location)
         # pp.pprint(args)
         PharkoLoadedCommand.isThisPluginLoaded()
 
@@ -60,9 +61,6 @@ class PharkoListCommand(sublime_plugin.TextCommand):
         if not os.path.isdir(samplePHPSnippets):
             shutil.copytree(PLUGIN_PATH + '/php', samplePHPSnippets)
 
-        location = ""
-        if len(args):
-            location = args['text']
         # command = ["ls", "-la", PLUGIN_PATH]
         command = ["php", PLUGIN_PATH + "/pharko.phar", "dir", "--base=" + PACKAGES_PATH, location]
 
