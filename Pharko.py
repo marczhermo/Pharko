@@ -33,7 +33,7 @@ else:
 PLUGIN_PATH = os.path.abspath(os.path.dirname(__file__))
 ## All packages path
 PACKAGES_PATH = sublime.packages_path() or os.path.dirname(PLUGIN_PATH)
-PACKAGES_PATH = os.path.join(PACKAGES_PATH, 'Pharkos')
+PACKAGES_PATH = os.path.join(PACKAGES_PATH, 'User', 'Pharko')
 
 def plugin_loaded():
     PharkoLoadedCommand.isThisPluginLoaded()
@@ -81,7 +81,7 @@ class PharkoListCommand(sublime_plugin.TextCommand):
 
             self.view.window().show_quick_panel(self.list, self.on_done, 1, 0)
         elif (response['type'] == 'snippet'):
-            self.view.run_command("insert_snippet", { "name": "Packages/Pharkos/" + response['data']})
+            self.view.run_command("insert_snippet", { "name": "Packages/User/Pharko/" + response['data']})
             self.view.window().run_command("pharko_panel", response) #works too
         elif (response['type'] == 'file'):
             self.view.run_command("insert_snippet", {'contents': response['data']})

@@ -37,7 +37,7 @@ class PharkoLoadedCommand:
     @staticmethod
     def createThisPackageFolder():
         ## All packages path
-        PACKAGES_PATH = os.path.join(sublime.packages_path(), 'Pharkos')
+        PACKAGES_PATH = os.path.join(sublime.packages_path(), 'User', 'Pharko')
         if not os.path.isdir(PACKAGES_PATH):
             print('Creating the folder, ' + PACKAGES_PATH)
             try:

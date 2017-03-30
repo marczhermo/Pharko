@@ -15,10 +15,14 @@ A typical example of folder organization is by having the file type/extension as
 Add the following keyboard shortcut to your Key Bindings file
 
  `{ "keys": ["alt+shift+0"], "command": "pharko_list", "args": {} },`
- 
+
 ![screenshot](docs/img/screenshot.gif)
 
 ## Whats New
+
+Additional shortcut to subdirectory inside parent folder
+ `{ "keys": ["alt+shift+9"], "command": "pharko_list", "args": { "location" : "php" } },`
+
 Snippets with additional documentation in mind. By including extra xml data on the snippet file,
 we are able to create an instruction or sample usage to our users.
 Here is an example snippet modification:
